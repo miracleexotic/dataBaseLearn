@@ -1,0 +1,10 @@
+mysql> CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
+
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password';
+ - [*.*] ทุกสคีมาทุกตาราง
+
+mysql> SELECT user, host FROM mysql.user;
+ - แสดงตารางชื่อ username กับ host
+
+mysql> DROP USER 'username'@'localhost'
+ - ลบ username
