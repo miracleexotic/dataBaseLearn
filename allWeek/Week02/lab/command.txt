@@ -1,0 +1,50 @@
+// สร้างตาราง [IF NOT EXISTS -> ถ้ายังไม่ได้สร้าง]
+CREATE TABLE IF NOT EXISTS Doctor(
+    doctor_id INT PRIMARY KEY, 
+    doctor_name VARCHAR(45),
+    doctor_gender VARCHAR(10),
+    ward DATE
+) ENGINE=INNODB; // ค่าเดิม ไม่ต้องใส่ก็ได้
+
+// สร้างตาราง [IF NOT EXISTS -> ถ้ายังไม่ได้สร้าง]
+CREATE TABLE IF NOT EXISTS Patient(
+    patient_id INT PRIMARY KEY,
+    patient_name VARCHAR(45),
+    doctor_id INT, // กำหนดตัวเชื่อมโยงเอาไว้ก่อน เพื่อใช้สำหรับ foreign key
+    FOREIGN KEY (doctor_id) REFERENCES doctor (doctor_id)
+) ENGINE=INNODB;
+
+// สร้างตาราง [IF NOT EXISTS -> ถ้ายังไม่ได้สร้าง]
+CREATE TABLE IF NOT EXISTS patientType(
+    id INT
+) ENGINE=INNODB;
+
+// เพิ่ม column type_name
+ALTER TABLE patientType
+ADD type_name VARCHAR(45);
+
+// เปลี่ยนชื่อ column id -> type_id
+ALTER TABLE patientType
+CHANGE COLUMN id type_id INT;
+
+// ปรับแต่ง type_id เพิ่ม primary key
+ALTER TABLE patientType
+MODIFY type_id INT PRIMARY KEY;
+
+// เพิ่ม column tid
+ALTER TABLE patient
+ADD tid INT;
+
+// เพิ่ม foreign key
+ALTER TABLE patient
+ADD FOREIGN KEY (tid) REFERENCES patientType(type_id);
+
+// สร้างตาราง
+CREATE TABLE IF NOT EXISTS Disease(
+    id INT,
+    name VARCHAR(45),
+    level INT
+) ENGINE=INNODB;
+
+// ลบตาราง
+DROP TABLE Disease
